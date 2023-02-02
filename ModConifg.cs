@@ -212,7 +212,7 @@ namespace VisualRadar {
 		}
 
 		public override bool AcceptClientChanges(ModConfig pendingConfig, int whoAmI, ref string message) {
-			return true;//DALib.Auth.IsAdmin(whoAmI, ref message);
+			return DALib.Auth.IsAdmin(whoAmI, ref message);
 		}
 	}
 

@@ -10,6 +10,8 @@ using Terraria.Localization;
 using Terraria.Map;
 using Terraria.ModLoader;
 
+using DALib.Checks;
+
 namespace VisualRadar {
     public class TrackedNPC : TrackedObject {
 		public static bool RadarEnabled => player.accThirdEye && !player.hideInfo[InfoDisplay.Radar.Type];
@@ -17,14 +19,19 @@ namespace VisualRadar {
 		public static bool RadarOrLifeformAnalyzerEnabled => RadarEnabled || LifeformAnalyzerEnabled;
 		public const int radarSearchDistance = 2000;
 		public const int lifeformAnalyzerSearchDistance = 1300;
+
+		public static bool IsValid(NPC npc) {
+			return (!npc.friendly && npc.damage > 0 && npc.lifeMax > 0 && !npc.dontCountMe && !npc.hide);
+		}
+
 		public void Get(string context, NPC npc, NPCTracker instance) {
             scale = 0f;
 			if (!npc.active || npc.type == 0) return;
-			bool isChild = Checks.IsChild(npc);
-			bool isBoss = Checks.IsBoss(npc);
-			bool isBossPiece = Checks.IsBossPiece(npc);
+			bool isChild = npc.IsChild();
+			bool isBoss = npc.IsBoss();
+			bool isBossPiece = npc.IsBossPiece();
 			bool isRare = npc.rarity > 0;
-			bool isNormal = (!isChild && Checks.IsValidNPC(npc)) || (isChild && Checks.IsValidNPC(Main.npc[npc.realLife]));
+			bool isNormal = (!isChild && IsValid(npc)) || (isChild && IsValid(Main.npc[npc.realLife]));
 			float npcDistance = Vector2.Distance(player.Center, npc.Center);
 			if ((isChild || isBoss || isBossPiece || isRare || isNormal) && ((isBoss && !isBossPiece) || npcDistance < radarSearchDistance)) {
 
@@ -59,7 +66,7 @@ namespace VisualRadar {
 				}
 				if (isChild && icon != null) {
 					if ((context == "map" && Config.Combined.Map.WormTailsEnabled) || (context == "screen" && Config.Combined.Screen.WormTailsEnabled)) {
-						icon = TextureAssets.InfoIcon[Checks.IsBoss(Main.npc[npc.realLife]) ? 8 : 6].Value;
+						icon = TextureAssets.InfoIcon[Main.npc[npc.realLife].IsBoss() ? 8 : 6].Value;
 						scale = (2f / 3f);
 					}
 					else {
@@ -73,7 +80,7 @@ namespace VisualRadar {
 						if (segment.ai[0] > 0 && Main.npc[(int)segment.ai[0]].active) {
 							firstSegmentID = (int)segment.ai[0];
 							segment = Main.npc[firstSegmentID];
-							instance.tracked[firstSegmentID].icon = TextureAssets.InfoIcon[Checks.IsBoss(Main.npc[npc.realLife]) ? 8 : 6].Value;
+							instance.tracked[firstSegmentID].icon = TextureAssets.InfoIcon[Main.npc[npc.realLife].IsBoss() ? 8 : 6].Value;
 							instance.tracked[firstSegmentID].scale = (2f / 3f);
 							instance.tracked[firstSegmentID].position = segment.Center;
 							instance.tracked[firstSegmentID].lerpPosition = context == "screen";

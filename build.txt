@@ -1,2 +1,4 @@
 ﻿author = Dark-Assassin
 displayName = Visual Radar
+version 1.0.1
+modReferences = DALib@1.4
