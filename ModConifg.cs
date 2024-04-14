@@ -1,123 +1,131 @@
 using System;
 using System.ComponentModel;
+using Terraria.Localization;
 using Terraria.ModLoader.Config;
 
 namespace VisualRadar {
-	[Label("Client Config")]
+
+
+	public enum WormBodyStyle : byte
+	{
+		ClosestOnly,
+		WholeBody,
+		ClosestAndHead,
+	}
+	public enum OverrideWormBodyStyle : byte
+	{
+		Unset,
+		ClosestOnly,
+		WholeBody,
+		ClosestAndHead,
+	}
+
+	public enum IconDistance : byte
+	{
+		Fixed,
+		Floating,
+	}
+
+	public enum OverrideIconDistance : byte
+	{
+		Unset,
+		Fixed,
+		Floating,
+	}
+
 	public class ClientConfig : ModConfig {
 		public override ConfigScope Mode => ConfigScope.ClientSide;
 		public static ClientConfig Instance;
 
 		public MapConfig Map = new();
-		[Label("Map Settings")]
 		public class MapConfig {
-			[Label("All Enabled")]
 			[DefaultValue(true)]
-			public bool Enabled = true;
+			public bool AllEnabled = true;
 
-			[Label("Boss Enabled")]
 			[DefaultValue(true)]
 			public bool BossEnabled = true;
 
-			[Label("Boss Piece Enabled")]
 			[DefaultValue(true)]
 			public bool BossPieceEnabled = true;
 
-			[Label("Rare Enabled")]
 			[DefaultValue(true)]
 			public bool RareEnabled = true;
 
-			[Label("Enemy Enabled")]
 			[DefaultValue(true)]
 			public bool EnemyEnabled = true;
 
-			[Label("Mark Worm Tails")]
 			[DefaultValue(true)]
-			public bool WormTailsEnabled = true;
+			public bool WormBodyEnabled = true;
 
-			[Label("Boss Bag Enabled")]
+			[DefaultValue(WormBodyStyle.WholeBody)]
+			public WormBodyStyle WormBodyStyle = WormBodyStyle.WholeBody;
+
 			[DefaultValue(true)]
-			public bool BagEnabled = true;
+			public bool BagsEnabled = true;
 
-			[Label("Treasure Enabled")]
 			[DefaultValue(true)]
 			public bool TreasureEnabled = true;
 		}
 
 		public ScreenConfig Screen = new();
-		[Label("Screen Settings")]
 		public class ScreenConfig {
-			[Label("All Enabled")]
 			[DefaultValue(true)]
-			public bool Enabled = true;
+			public bool AllEnabled = true;
 
-			[Label("Boss Enabled")]
 			[DefaultValue(true)]
 			public bool BossEnabled = true;
 
-			[Label("Boss Piece Enabled")]
 			[DefaultValue(false)]
 			public bool BossPieceEnabled = false;
 
-			[Label("Rare Enabled")]
-			[DefaultValue(false)]
-			public bool RareEnabled = false;
+			[DefaultValue(true)]
+			public bool RareEnabled = true;
 
-			[Label("Enemy Enabled")]
 			[DefaultValue(false)]
 			public bool EnemyEnabled = false;
 
-			[Label("Mark Worm Tails")]
-			[DefaultValue(false)]
-			public bool WormTailsEnabled = false;
-
-			[Label("Boss Bag Enabled")]
 			[DefaultValue(true)]
-			public bool BagEnabled = true;
+			public bool WormBodyEnabled = true;
 
-			[Label("Treasure Enabled")]
+			[DefaultValue(WormBodyStyle.ClosestOnly)]
+			public WormBodyStyle WormBodyStyle = WormBodyStyle.ClosestOnly;
+
+			[DefaultValue(true)]
+			public bool BagsEnabled = true;
+
 			[DefaultValue(true)]
 			public bool TreasureEnabled = true;
 
-			[Label("Fixed Icon Distance")]
-			[DefaultValue(true)]
-			public bool FixedDistance = true;
+			[DefaultValue(IconDistance.Fixed)]
+			public IconDistance IconDistance = IconDistance.Fixed;
 
-			[Label("Fixed Icon Base Distance")]
-			[Range(16, 64)]
+			[Range(0, 64)]
 			[Increment(1)]
 			[Slider]
-			[DefaultValue(24)]
-			public int FixedBaseDistance = 24;
+			[DefaultValue(0)]
+			public int FixedBaseDistance = 0;
 
-			[Label("Fixed Icon Distance Multiplier")]
 			[Range(1f, 3f)]
 			[Increment(0.1f)]
 			[Slider]
 			[DefaultValue(1f)]
 			public float FixedDistanceMult = 1f;
 
-			[Label("Icon Scale (percent)")]
 			[Range(0f, 100f)]
 			[Increment(50f/6f)]
 			[Slider]
-			[DefaultValue(75f)]
+			[DefaultValue(100f)]
 			public float IconScale = 75f;
 			
-			[Label("Attach to UI Scale")]
 			[DefaultValue(false)]
-			public bool AttachToUIScale = false;
+			public bool AttachToUIScale = true;
 			
-			[Label("Attach to Game Zoom")]
 			[DefaultValue(true)]
-			public bool AttachToGameZoom = true;
+			public bool AttachToGameZoom = false;
 
-			[Label("Icon Border")]
 			[DefaultValue(true)]
 			public bool IconBorder = true;
 
-			[Label("Icon Alpha (percent)")]
-			[Tooltip("Doesn't work properly yet.")]
 			[Range(0, 100)]
 			[Increment(1)]
 			[Slider]
@@ -126,92 +134,74 @@ namespace VisualRadar {
 
 	}
 
-	[Label("Server Config")]
 	public class ServerConfig : ModConfig {
 		public override ConfigScope Mode => ConfigScope.ServerSide;
 		public static ServerConfig Instance;
 
 		public MapConfig Map = new();
-		[Label("Map Settings")]
 		public class MapConfig {
-			[Label("All Enabled")]
 			[DefaultValue(true)]
-			public bool Enabled = true;
+			public bool AllowAll = true;
 
-			[Label("Boss Enabled")]
 			[DefaultValue(true)]
-			public bool BossEnabled = true;
+			public bool AllowBoss = true;
 
-			[Label("Boss Piece Enabled")]
 			[DefaultValue(true)]
-			public bool BossPieceEnabled = true;
+			public bool AllowBossPiece = true;
 
-			[Label("Rare Enabled")]
 			[DefaultValue(true)]
-			public bool RareEnabled = true;
+			public bool AllowRare = true;
 
-			[Label("Enemy Enabled")]
 			[DefaultValue(true)]
-			public bool EnemyEnabled = true;
+			public bool AllowEnemy = true;
 
-			[Label("Mark Worm Tails")]
 			[DefaultValue(true)]
-			public bool WormTailsEnabled = true;
+			public bool AllowWormBody = true;
 
-			[Label("Boss Bag Enabled")]
 			[DefaultValue(true)]
-			public bool BagEnabled = true;
+			public OverrideWormBodyStyle OverrideWormBodyStyle = OverrideWormBodyStyle.Unset;
 
-			[Label("Treasure Enabled")]
 			[DefaultValue(true)]
-			public bool TreasureEnabled = true;
+			public bool AllowBags = true;
+
+			[DefaultValue(true)]
+			public bool AllowTreasure = true;
 		}
 
 		public ScreenConfig Screen = new();
-		[Label("Screen Settings")]
 		public class ScreenConfig {
-			[Label("All Enabled")]
 			[DefaultValue(true)]
-			public bool Enabled = true;
+			public bool AllowAll = true;
 
-			[Label("Boss Enabled")]
 			[DefaultValue(true)]
-			public bool BossEnabled = true;
+			public bool AllowBoss = true;
 
-			[Label("Boss Piece Enabled")]
-			[DefaultValue(false)]
-			public bool BossPieceEnabled = false;
-
-			[Label("Rare Enabled")]
-			[DefaultValue(false)]
-			public bool RareEnabled = false;
-
-			[Label("Enemy Enabled")]
-			[DefaultValue(false)]
-			public bool EnemyEnabled = false;
-
-			[Label("Mark Worm Tails")]
-			[DefaultValue(false)]
-			public bool WormTailsEnabled = false;
-
-			[Label("Boss Bag Enabled")]
 			[DefaultValue(true)]
-			public bool BagEnabled = true;
+			public bool AllowBossPiece = true;
 
-			[Label("Treasure Enabled")]
 			[DefaultValue(true)]
-			public bool TreasureEnabled = true;
+			public bool AllowRare = true;
 
-			[Label("Fixed Distance")]
-			[Tooltip("-1: User\n0: Disabled\n1: Enabled")]
-			[Range(-1, 1)]
-			[Increment(1)]
-			[Slider]
-			[DefaultValue(-1)]
-			public int FixedDistance = -1;
+			[DefaultValue(true)]
+			public bool AllowEnemy = true;
+
+			[DefaultValue(true)]
+			public bool AllowWormBody = true;
+
+			[DefaultValue(OverrideWormBodyStyle.Unset)]
+			public OverrideWormBodyStyle OverrideWormBodyStyle = OverrideWormBodyStyle.Unset;
+
+			[DefaultValue(true)]
+			public bool AllowBags = true;
+
+			[DefaultValue(true)]
+			public bool AllowTreasure = true;
+
+			[DefaultValue(OverrideIconDistance.Unset)]
+			public OverrideIconDistance OverrideIconDistance = OverrideIconDistance.Unset;
 		}
 
-		public override bool AcceptClientChanges(ModConfig pendingConfig, int whoAmI, ref string message) {
+		public override bool AcceptClientChanges(ModConfig pendingConfig, int whoAmI, ref NetworkText message) {
 			return DALib.Auth.IsAdmin(whoAmI, ref message);
 		}
 	}
@@ -219,27 +209,29 @@ namespace VisualRadar {
 	public class CombinedConfig {
 		public MapConfig Map = new();
 		public class MapConfig {
-			public bool Enabled => ClientConfig.Instance.Map.Enabled && ServerConfig.Instance.Map.Enabled;
-			public bool BossEnabled => ClientConfig.Instance.Map.BossEnabled && ServerConfig.Instance.Map.BossEnabled;
-			public bool BossPieceEnabled => ClientConfig.Instance.Map.BossPieceEnabled && ServerConfig.Instance.Map.BossPieceEnabled;
-			public bool RareEnabled => ClientConfig.Instance.Map.RareEnabled && ServerConfig.Instance.Map.RareEnabled;
-			public bool EnemyEnabled => ClientConfig.Instance.Map.EnemyEnabled && ServerConfig.Instance.Map.EnemyEnabled;
-			public bool WormTailsEnabled => ClientConfig.Instance.Map.WormTailsEnabled && ServerConfig.Instance.Map.WormTailsEnabled;
-			public bool BagEnabled => ClientConfig.Instance.Map.BagEnabled && ServerConfig.Instance.Map.BagEnabled;
-			public bool TreasureEnabled => ClientConfig.Instance.Map.TreasureEnabled && ServerConfig.Instance.Map.TreasureEnabled;
+			public bool Enabled => ClientConfig.Instance.Map.AllEnabled && ServerConfig.Instance.Map.AllowAll;
+			public bool BossEnabled => ClientConfig.Instance.Map.BossEnabled && ServerConfig.Instance.Map.AllowBoss;
+			public bool BossPieceEnabled => ClientConfig.Instance.Map.BossPieceEnabled && ServerConfig.Instance.Map.AllowBossPiece;
+			public bool RareEnabled => ClientConfig.Instance.Map.RareEnabled && ServerConfig.Instance.Map.AllowRare;
+			public bool EnemyEnabled => ClientConfig.Instance.Map.EnemyEnabled && ServerConfig.Instance.Map.AllowEnemy;
+			public bool WormBodyEnabled => ClientConfig.Instance.Map.WormBodyEnabled && ServerConfig.Instance.Map.AllowWormBody;
+			public WormBodyStyle WormBodyStyle => ServerConfig.Instance.Map.OverrideWormBodyStyle == OverrideWormBodyStyle.Unset ? ClientConfig.Instance.Map.WormBodyStyle : (WormBodyStyle)ServerConfig.Instance.Map.OverrideWormBodyStyle - 1;
+			public bool BagEnabled => ClientConfig.Instance.Map.BagsEnabled && ServerConfig.Instance.Map.AllowBags;
+			public bool TreasureEnabled => ClientConfig.Instance.Map.TreasureEnabled && ServerConfig.Instance.Map.AllowTreasure;
 		}
 
 		public ScreenConfig Screen = new();
 		public class ScreenConfig {
-			public bool Enabled => ClientConfig.Instance.Screen.Enabled && ServerConfig.Instance.Screen.Enabled;
-			public bool BossEnabled => ClientConfig.Instance.Screen.BossEnabled && ServerConfig.Instance.Screen.BossEnabled;
-			public bool BossPieceEnabled => ClientConfig.Instance.Screen.BossPieceEnabled && ServerConfig.Instance.Screen.BossPieceEnabled;
-			public bool RareEnabled => ClientConfig.Instance.Screen.RareEnabled && ServerConfig.Instance.Screen.RareEnabled;
-			public bool EnemyEnabled => ClientConfig.Instance.Screen.EnemyEnabled && ServerConfig.Instance.Screen.EnemyEnabled;
-			public bool WormTailsEnabled => ClientConfig.Instance.Screen.WormTailsEnabled && ServerConfig.Instance.Screen.WormTailsEnabled;
-			public bool BagEnabled => ClientConfig.Instance.Screen.BagEnabled && ServerConfig.Instance.Screen.BagEnabled;
-			public bool TreasureEnabled => ClientConfig.Instance.Screen.TreasureEnabled && ServerConfig.Instance.Screen.TreasureEnabled;
-			public bool FixedDistance => (ServerConfig.Instance.Screen.FixedDistance <= -1 && ClientConfig.Instance.Screen.FixedDistance) || ServerConfig.Instance.Screen.FixedDistance >= 1;
+			public bool Enabled => ClientConfig.Instance.Screen.AllEnabled && ServerConfig.Instance.Screen.AllowAll;
+			public bool BossEnabled => ClientConfig.Instance.Screen.BossEnabled && ServerConfig.Instance.Screen.AllowBoss;
+			public bool BossPieceEnabled => ClientConfig.Instance.Screen.BossPieceEnabled && ServerConfig.Instance.Screen.AllowBossPiece;
+			public bool RareEnabled => ClientConfig.Instance.Screen.RareEnabled && ServerConfig.Instance.Screen.AllowRare;
+			public bool EnemyEnabled => ClientConfig.Instance.Screen.EnemyEnabled && ServerConfig.Instance.Screen.AllowEnemy;
+			public bool WormBodyEnabled => ClientConfig.Instance.Screen.WormBodyEnabled && ServerConfig.Instance.Screen.AllowWormBody;
+			public WormBodyStyle WormBodyStyle => ServerConfig.Instance.Screen.OverrideWormBodyStyle == OverrideWormBodyStyle.Unset ? ClientConfig.Instance.Screen.WormBodyStyle : (WormBodyStyle)ServerConfig.Instance.Screen.OverrideWormBodyStyle - 1;
+			public bool BagEnabled => ClientConfig.Instance.Screen.BagsEnabled && ServerConfig.Instance.Screen.AllowBags;
+			public bool TreasureEnabled => ClientConfig.Instance.Screen.TreasureEnabled && ServerConfig.Instance.Screen.AllowTreasure;
+			public IconDistance IconDistance => ServerConfig.Instance.Screen.OverrideIconDistance == OverrideIconDistance.Unset ? ClientConfig.Instance.Screen.IconDistance : (IconDistance)ServerConfig.Instance.Screen.OverrideIconDistance - 1;
 		}
 	}
 

@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using Terraria;
 using Terraria.ModLoader;
+using Terraria.ID;
 
 namespace VisualRadar
 {
@@ -24,12 +25,12 @@ namespace VisualRadar
 			};
         }
         public override void PostUpdateEverything() {
-            if (Main.netMode == 2 || Main.gameMenu) return;
+            if (Main.netMode == NetmodeID.Server || Main.gameMenu) return;
 			foreach (Tracker tracked in trackedScreenObjects) {
-				tracked.Update("screen");
+				tracked.Update(TrackedContext.Screen);
 			}
 			foreach (Tracker tracked in trackedMapObjects) {
-				tracked.Update("map");
+				tracked.Update(TrackedContext.Map);
 			}
         }
     }

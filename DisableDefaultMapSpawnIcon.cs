@@ -8,14 +8,11 @@ using Terraria.ModLoader;
 namespace VisualRadar {
 	public class DisableDefaultMapSpawnIcon : ModSystem {
 		public MethodInfo DrawMethod => typeof(Terraria.Map.SpawnMapLayer).GetMethod("Draw", BindingFlags.Public | BindingFlags.Instance);
+		public delegate void DrawDelegate(SpawnMapLayer instance, ref MapOverlayDrawContext context, ref string text);
 		public override void Load() {
 			if (Main.netMode == 2) return;
-			HookEndpointManager.Add(DrawMethod, Override_Draw);
+			try { MonoModHooks.Add(DrawMethod, Override_Draw); } catch { throw new Exception("Could not hook into SpawnMapLayer.Draw"); }
 		}
-		public override void Unload() {
-			if (Main.netMode == 2) return;
-			try { HookEndpointManager.Remove(DrawMethod, Override_Draw); } catch {}
-		}
-		public void Override_Draw(Action<SpawnMapLayer,MapOverlayDrawContext,string> Draw, SpawnMapLayer instance, ref MapOverlayDrawContext context, ref string text) {}
+		public void Override_Draw(DrawDelegate Draw, SpawnMapLayer instance, ref MapOverlayDrawContext context, ref string text) {}
 	}
 }

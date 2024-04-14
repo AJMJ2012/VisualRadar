@@ -9,15 +9,12 @@ using Terraria;
 namespace VisualRadar {
     public class BetterOreFinder : ModSystem {
 		public MethodInfo UpdateOreFinderDataMethod => typeof(Terraria.SceneMetrics).GetMethod("UpdateOreFinderData", BindingFlags.NonPublic | BindingFlags.Instance);
+		public delegate void UpdateOreFinderDataDelegate(SceneMetrics instance);
 		public override void Load() {
 			if (Main.netMode == 2) return;
-			HookEndpointManager.Add(UpdateOreFinderDataMethod, Override_UpdateOreFinderData);
+			try { MonoModHooks.Add(UpdateOreFinderDataMethod, Override_UpdateOreFinderData); } catch { throw new Exception("Could not hook into SceneMetrics.UpdateOreFinderData"); }
 		}
-		public override void Unload() {
-			if (Main.netMode == 2) return;
-			HookEndpointManager.Remove(UpdateOreFinderDataMethod, Override_UpdateOreFinderData);
-		}
-		public void Override_UpdateOreFinderData(Action<SceneMetrics> UpdateOreFinderData, SceneMetrics instance) {
+		public void Override_UpdateOreFinderData(UpdateOreFinderDataDelegate UpdateOreFinderData, SceneMetrics instance) {
 			try {
 				int num = -1;
 				float num2 = -1;

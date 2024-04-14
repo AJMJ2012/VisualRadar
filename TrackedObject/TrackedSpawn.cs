@@ -12,8 +12,9 @@ using Terraria.ModLoader;
 
 namespace VisualRadar {
     public class TrackedSpawn : TrackedObject {
-		public void Get(string context, bool checkBed) {
-            scale = 0f;
+		public void Get(TrackedContext context, bool checkBed) {
+			active = false;
+			scale = 1f;
 			int[] mirrors = new int[]{
 				ItemID.MagicMirror,
 				ItemID.IceMirror,
@@ -24,7 +25,7 @@ namespace VisualRadar {
 				Main.mouseItem.type,
 				Main.HoverItem.type,
 			};
-			if (((context == "screen" && items.Any(x => mirrors.Contains(x))) || context == "map") && (checkBed && player.SpawnX != -1 || !checkBed)) {
+			if (((context == TrackedContext.Screen && items.Any(x => mirrors.Contains(x))) || context == TrackedContext.Map) && (checkBed && player.SpawnX != -1 || !checkBed)) {
 				if (checkBed && player.SpawnX != -1) {
 					iconText = Language.GetTextValue("UI.SpawnBed");
 					icon = TextureAssets.SpawnBed.Value;
@@ -36,8 +37,8 @@ namespace VisualRadar {
 					position = new Vector2(Main.spawnTileX, Main.spawnTileY) * 16;
 				}
 				position += new Vector2(8f, -8f);
-				fixedDistance = 16;
-				scale = 1f;
+				fixedDistance = 48;
+				active = true;
 			}
 		}
     }

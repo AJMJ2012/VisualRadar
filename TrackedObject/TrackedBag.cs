@@ -1,27 +1,21 @@
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using Terraria;
 using Terraria.GameContent;
 using Terraria.ID;
-using Terraria.Localization;
-using Terraria.Map;
-using Terraria.ModLoader;
 
-namespace VisualRadar {
-    public class TrackedBag : TrackedObject {
-		public void Get(string context, Item item) {
-            scale = 0f;
-			if (!item.active || item.type == 0) return;
-			if ((context == "map" && Config.Combined.Map.BagEnabled) || (context == "screen" && Config.Combined.Screen.BagEnabled)) {
+namespace VisualRadar
+{
+	public class TrackedBag : TrackedObject {
+		public void Get(TrackedContext context, Item item) {
+			scale = 1f;
+			active = false;
+			if (!item.active || item.IsAir) return;
+			if ((context == TrackedContext.Map && Config.Combined.Map.BagEnabled) || (context == TrackedContext.Screen && Config.Combined.Screen.BagEnabled)) {
 				if (ItemID.Sets.BossBag[item.type]) {
-			        iconText = item.AffixName();
+					iconText = item.AffixName();
 					icon = TextureAssets.Item[item.type].Value;
 					position = item.Center;
-					fixedDistance = 64;
-					scale = 1f;
+					fixedDistance = 256;
+					active = true;
 				}
 			}
 		}

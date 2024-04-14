@@ -8,14 +8,11 @@ using Terraria.ModLoader;
 namespace VisualRadar {
     public class DisableDefaultMapBossIcon : ModSystem {
 		public MethodInfo DrawNPCHeadBossMethod => typeof(Terraria.Main).GetMethod("DrawNPCHeadBoss", BindingFlags.NonPublic | BindingFlags.Static);
+		public delegate void DrawNPCHeadBossDelegate(Entity theNPC, byte alpha, float headScale, float rotation, SpriteEffects effects, int npcID, float x, float y);
 		public override void Load() {
 			if (Main.netMode == 2) return;
-			HookEndpointManager.Add(DrawNPCHeadBossMethod, Override_DrawNPCHeadBoss);
+			try { MonoModHooks.Add(DrawNPCHeadBossMethod, Override_DrawNPCHeadBoss); } catch { throw new Exception("Could not hook into Main.DrawNPCHeadBoss"); }
 		}
-		public override void Unload() {
-			if (Main.netMode == 2) return;
-			try { HookEndpointManager.Remove(DrawNPCHeadBossMethod, Override_DrawNPCHeadBoss); } catch {}
-		}
-		public void Override_DrawNPCHeadBoss(Action<Entity,byte,float,float,SpriteEffects,int,float,float> DrawNPCHeadBoss, Entity theNPC, byte alpha, float headScale, float rotation, SpriteEffects effects, int npcID, float x, float y) {}
+		public void Override_DrawNPCHeadBoss(DrawNPCHeadBossDelegate DrawNPCHeadBoss, Entity theNPC, byte alpha, float headScale, float rotation, SpriteEffects effects, int npcID, float x, float y) {}
 	}
 }

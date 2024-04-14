@@ -7,14 +7,15 @@ namespace VisualRadar {
 			for (int i = 0; i < tracked.Length; i++)
 				tracked[i] = new TrackedNPC();
         }
-        public override void Update(string context) {
+        public override void Update(TrackedContext context) {
             for (int i = 0; i < tracked.Length; i++) {
-                NPC npc = Main.npc[i];
+                NPC npc = Main.npc[tracked.Length-1-i];
                 ((TrackedNPC)tracked[i]).Get(context, npc, this);
             }
             for (int i = 0; i < tracked.Length; i++) {
-                tracked[i].SetScale(context);
-                tracked[i].SetPosition(context);
+                tracked[i].Animate(context);
+				tracked[i].SetScale(context);
+				tracked[i].SetPosition(context);
             }
         }
     }

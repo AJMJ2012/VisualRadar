@@ -1,13 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Project Sdk="Microsoft.NET.Sdk">
-  <Import Project="..\tModLoader.targets" />
-  <PropertyGroup>
-    <AssemblyName>VisualRadar</AssemblyName>
-    <TargetFramework>net6.0</TargetFramework>
-    <PlatformTarget>AnyCPU</PlatformTarget>
-    <LangVersion>latest</LangVersion>
-  </PropertyGroup>
-  <ItemGroup>
-    <PackageReference Include="tModLoader.CodeAssist" Version="0.1.*" />
-  </ItemGroup>
+	<Import Project="..\tModLoader.targets" />
+	<PropertyGroup>
+		<AssemblyName>VisualRadar</AssemblyName>
+	</PropertyGroup>
+	<ItemGroup>
+		<Reference Include="DALib">
+			<HintPath>..\DALib\bin\Debug\net8.0\DALib.dll</HintPath>
+		</Reference>
+	</ItemGroup>
 </Project>

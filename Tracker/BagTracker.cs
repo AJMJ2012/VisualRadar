@@ -7,13 +7,14 @@ namespace VisualRadar {
 			for (int i = 0; i < tracked.Length; i++)
 				tracked[i] = new TrackedBag();
         }
-        public override void Update(string context) {
+        public override void Update(TrackedContext context) {
             for (int i = 0; i < tracked.Length; i++) {
                 Item item = Main.item[i];
                 ((TrackedBag)tracked[i]).Get(context, item);
-                tracked[i].SetPosition(context);
-                tracked[i].SetScale(context);
-            }
+				tracked[i].Animate(context);
+				tracked[i].SetPosition(context);
+				tracked[i].SetScale(context);
+			}
         }
     }
 }
