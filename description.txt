@@ -1,0 +1,3 @@
+Adds on-screen and on-map indicators for various informational accessories such as the Radar, Metal Detector, and Lifeform Analyzer as long as they are active.
+Boss icons and bags will also be shown if you have any of these active.
+Icons pointing towards the spawn point and your bed will show while holding a mirror item.
