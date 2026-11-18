@@ -1,11 +1,11 @@
-namespace VisualRadar
-{
+namespace VisualRadar;
+
 	public class TreasureTracker : Tracker {
-        public TreasureTracker() {
+    public TreasureTracker() {
 			tracked = new TrackedTreasure[8];
 			for (int i = 0; i < tracked.Length; i++)
 				tracked[i] = new TrackedTreasure();
-        }
+    }
 
 		int current = 0;
 		public override void Update(TrackedContext context)
@@ -24,6 +24,5 @@ namespace VisualRadar
 					tracked[i].SetScale(context);
 				}
 			}
-        }
     }
 }

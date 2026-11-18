@@ -6,8 +6,8 @@ using Terraria.ID;
 using Terraria.Map;
 using Terraria.ModLoader;
 
-namespace VisualRadar
-{
+namespace VisualRadar;
+
 	public class TrackedTreasure : TrackedObject {
 		public static bool MetalDetectorEnabled => player.accOreFinder && !player.hideInfo[InfoDisplay.MetalDetector.Type];
 		public void Get(TrackedContext context)
@@ -79,4 +79,3 @@ namespace VisualRadar
 			}
 		}
 	}
-}
