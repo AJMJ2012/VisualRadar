@@ -5,19 +5,20 @@ using Terraria;
 
 namespace VisualRadar;
 
+[Flags]
 public enum TrackedContext : byte
 {
-	None = 0,
-	Screen = 1,
-	Map = 2,
+	None,
+	Screen,
+	Map,
 }
 
 public enum LerpMode : byte
 {
-	None = 0,
-	Smooth = 1,
-	Fast = 2,
-	Linear = 3,
+	None,
+	Smooth,
+	Fast,
+	Linear,
 }
 
 public class TrackedObject
@@ -74,7 +75,7 @@ public class TrackedObject
 		float amount = scale;
 		if (context == TrackedContext.Screen)
 		{
-			amount *= Config.Client.Screen.IconScale / 100f;
+			amount *= Config.Client.ScreenIcons.Scale / 100f;
 		}
 		if (!animate)
 		{

@@ -6,6 +6,7 @@ using Terraria;
 using Terraria.GameContent;
 using Terraria.ID;
 using Terraria.ModLoader;
+using Terraria.ModLoader.UI;
 
 namespace VisualRadar;
 
@@ -42,7 +43,7 @@ public class TrackedNPC : TrackedObject
 			lerpMode = LerpMode.Fast;
 			lerpPosition = context == TrackedContext.Screen;
 			fixedDistance = isBoss ? 192 : isBossPiece ? 160 : isRare ? 128 : 96;
-			if (isBoss && ((context == TrackedContext.Map && Config.Combined.Map.BossEnabled) || (context == TrackedContext.Screen && Config.Combined.Screen.BossEnabled)) && RadarOrLifeformAnalyzerEnabled)
+			if (isBoss && ((context == TrackedContext.Map && (Config.BossIcons & ConfigEnableType.Map) > 0) || (context == TrackedContext.Screen && (Config.BossIcons & ConfigEnableType.Screen) > 0)) && RadarOrLifeformAnalyzerEnabled)
 			{
 				icon = TextureAssets.InfoIcon[8].Value;
 				if (npc.GetBossHeadTextureIndex() >= 0 && npc.GetBossHeadTextureIndex() < TextureAssets.NpcHeadBoss.Length)
@@ -53,34 +54,34 @@ public class TrackedNPC : TrackedObject
 			}
 			else if (isBossPiece)
 			{
-				if (((context == TrackedContext.Map && Config.Combined.Map.BossPieceEnabled) || (context == TrackedContext.Screen && Config.Combined.Screen.BossPieceEnabled)) && RadarOrLifeformAnalyzerEnabled)
+				if (((context == TrackedContext.Map && (Config.BossPieceIcons & ConfigEnableType.Map) > 0) || (context == TrackedContext.Screen && (Config.BossPieceIcons & ConfigEnableType.Screen) > 0)) && RadarOrLifeformAnalyzerEnabled)
 				{
 					icon = TextureAssets.InfoIcon[8].Value;
 					active = true;
 				}
 			}
-			else if (isRare && ((context == TrackedContext.Map && Config.Combined.Map.RareEnabled) || (context == TrackedContext.Screen && Config.Combined.Screen.RareEnabled)) && LifeformAnalyzerEnabled && npcDistance < lifeformAnalyzerSearchDistance)
+			else if (isRare && ((context == TrackedContext.Map && (Config.RareIcons & ConfigEnableType.Map) > 0) || (context == TrackedContext.Screen && (Config.RareIcons & ConfigEnableType.Screen) > 0)) && LifeformAnalyzerEnabled && npcDistance < lifeformAnalyzerSearchDistance)
 			{
 				icon = TextureAssets.InfoIcon[11].Value;
 				active = true;
 			}
-			else if (isNormal && ((context == TrackedContext.Map && Config.Combined.Map.EnemyEnabled) || (context == TrackedContext.Screen && Config.Combined.Screen.EnemyEnabled)) && RadarEnabled)
+			else if (isNormal && ((context == TrackedContext.Map && (Config.EnemyIcons & ConfigEnableType.Map) > 0) || (context == TrackedContext.Screen && (Config.EnemyIcons & ConfigEnableType.Screen) > 0)) && RadarEnabled)
 			{
 				icon = TextureAssets.InfoIcon[5].Value;
 				active = true;
 			}
-			if (active)
+			if (active && ((context == TrackedContext.Map && (Config.WormBodyIcons & ConfigEnableType.Map) <= 0) || (context == TrackedContext.Screen && (Config.WormBodyIcons & ConfigEnableType.Screen) <= 0)))
 			{
 				if (isChild)
 				{
 					active = false;
 					icon = TextureAssets.InfoIcon[isBossPiece ? 8 : 6].Value;
-					if ((context == TrackedContext.Map && Config.Combined.Map.WormBodyStyle == WormBodyStyle.WholeBody) || (context == TrackedContext.Screen && Config.Combined.Screen.WormBodyStyle == WormBodyStyle.WholeBody))
+					if ((context == TrackedContext.Map && Config.WormBodyStyles.Map == ConfigWormBodyStyle.WholeBody) || (context == TrackedContext.Screen && Config.WormBodyStyles.Screen == ConfigWormBodyStyle.WholeBody))
 					{
 						active = true;
 						scale = (2f / 3f);
 					}
-					else if ((context == TrackedContext.Map && Config.Combined.Map.WormBodyStyle == WormBodyStyle.ClosestAndHead) || (context == TrackedContext.Screen && Config.Combined.Screen.WormBodyStyle == WormBodyStyle.ClosestAndHead))
+					else if ((context == TrackedContext.Map && Config.WormBodyStyles.Map == ConfigWormBodyStyle.ClosestAndHead) || (context == TrackedContext.Screen && Config.WormBodyStyles.Screen == ConfigWormBodyStyle.ClosestAndHead))
 					{
 						// Apply single icon to whole body. Head still keeps the original icon.
 						NPC parent = Main.npc[npc.realLife];
@@ -133,7 +134,7 @@ public class TrackedNPC : TrackedObject
 				}
 				else if (isParent)
 				{
-					if ((context == TrackedContext.Map && Config.Combined.Map.WormBodyStyle == WormBodyStyle.ClosestOnly) || (context == TrackedContext.Screen && Config.Combined.Screen.WormBodyStyle == WormBodyStyle.ClosestOnly))
+					if ((context == TrackedContext.Map && Config.WormBodyStyles.Map == ConfigWormBodyStyle.Closest) || (context == TrackedContext.Screen && Config.WormBodyStyles.Screen == ConfigWormBodyStyle.Closest))
 					{
 						// Move head icon across the whole body
 						NPC segment = npc;

@@ -11,7 +11,7 @@ public class TrackedBag : TrackedObject
 		scale = 1f;
 		active = false;
 		if (!item.active || item.IsAir) return;
-		if ((context == TrackedContext.Map && Config.Combined.Map.BagEnabled) || (context == TrackedContext.Screen && Config.Combined.Screen.BagEnabled))
+		if ((context == TrackedContext.Map && (Config.BagIcons & ConfigEnableType.Map) > 0) || (context == TrackedContext.Screen && (Config.BagIcons & ConfigEnableType.Screen) > 0))
 		{
 			if (ItemID.Sets.BossBag[item.type])
 			{

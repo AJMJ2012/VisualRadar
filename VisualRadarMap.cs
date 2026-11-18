@@ -14,7 +14,7 @@ public class VisualRadarMap : ModMapLayer
 {
 	public override void Draw(ref MapOverlayDrawContext context, ref string text)
 	{
-		if (Main.netMode == NetmodeID.Server || !Config.Server.Map.AllowAll || !Config.Client.Map.AllEnabled) return;
+		if (Main.netMode == NetmodeID.Server || (Config.EnabledFor & ConfigEnableType.Map) <= 0) return;
 		try
 		{
 			foreach (Tracker tracked in VisualRadarTracker.instance.trackedMapObjects)

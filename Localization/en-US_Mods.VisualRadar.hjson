@@ -1,353 +1,349 @@
 Configs: {
-	ClientConfig: {
-		DisplayName: Client Config
-
-		Map: {
-			Label: Map
-			Tooltip: ""
-		}
-
-		Screen: {
-			Label: Screen
-			Tooltip: ""
-		}
-	}
-
-	MapConfig: {
-		Tooltip: ""
-
-		Enabled: {
-			Label: All Enabled
-			Tooltip: ""
-		}
-
-		BossEnabled: {
-			Label: Boss Enabled
-			Tooltip: ""
-		}
-
-		BossPieceEnabled: {
-			Label: Boss Piece Enabled
-			Tooltip: ""
-		}
-
-		RareEnabled: {
-			Label: Rare Enabled
-			Tooltip: ""
-		}
-
-		EnemyEnabled: {
-			Label: Enemy Enabled
-			Tooltip: ""
-		}
-
-		WormBodyEnabled: {
-			Label: Worm Body Enabled
-			Tooltip: ""
-		}
-
-		BagsEnabled: {
-			Label: Boss Bags Enabled
-			Tooltip: ""
-		}
-
-		TreasureEnabled: {
-			Label: Treasure Enabled
-			Tooltip: ""
-		}
-
-		AllEnabled: {
-			Label: All Enabled
-			Tooltip: ""
-		}
-
-		WormBodyStyle: {
-			Label: Worm Body Style
-			Tooltip: ""
-		}
-
-		AllowAll: {
-			Label: Allow All
-			Tooltip: ""
-		}
-
-		AllowBoss: {
-			Label: Allow Boss
-			Tooltip: ""
-		}
-
-		AllowBossPiece: {
-			Label: Allow Boss Piece
-			Tooltip: ""
-		}
-
-		AllowRare: {
-			Label: Allow Rare
-			Tooltip: ""
-		}
-
-		AllowEnemy: {
-			Label: Allow Enemy
-			Tooltip: ""
-		}
-
-		AllowWormBody: {
-			Label: Allow Worm Body
-			Tooltip: ""
-		}
-
-		OverrideWormBodyStyle: {
-			Label: Override Worm Body Style
-			Tooltip: ""
-		}
-
-		AllowBags: {
-			Label: Allow Bags
-			Tooltip: ""
-		}
-
-		AllowTreasure: {
-			Label: Allow Treasure
-			Tooltip: ""
-		}
-	}
-
-	ScreenConfig: {
-		Tooltip: ""
-
-		Enabled: {
-			Label: All Enabled
-			Tooltip: ""
-		}
-
-		BossEnabled: {
-			Label: Boss Enabled
-			Tooltip: ""
-		}
-
-		BossPieceEnabled: {
-			Label: Boss Piece Enabled
-			Tooltip: ""
-		}
-
-		RareEnabled: {
-			Label: Rare Enabled
-			Tooltip: ""
-		}
-
-		EnemyEnabled: {
-			Label: Enemy Enabled
-			Tooltip: ""
-		}
-
-		WormBodyEnabled: {
-			Label: Worm Body Enabled
-			Tooltip: ""
-		}
-
-		BagsEnabled: {
-			Label: Boss Bags Enabled
-			Tooltip: ""
-		}
-
-		TreasureEnabled: {
-			Label: Treasure Enabled
-			Tooltip: ""
-		}
-
-		FixedDistance: {
-			Label: Fixed Icon Distance
-			Tooltip: ""
-		}
-
-		FixedBaseDistance: {
-			Label: Fixed Icon Base Distance
-			Tooltip: ""
-		}
-
-		FixedDistanceMult: {
-			Label: Fixed Icon Distance Multiplier
-			Tooltip: ""
-		}
-
-		IconScale: {
-			Label: Icon Scale (percent)
-			Tooltip: ""
-		}
-
-		AttachToUIScale: {
-			Label: Attach to UI Scale
-			Tooltip: ""
-		}
-
-		AttachToGameZoom: {
-			Label: Attach to Game Zoom
-			Tooltip: ""
-		}
-
-		IconBorder: {
-			Label: Icon Border
-			Tooltip: ""
-		}
-
-		IconAlpha: {
-			Label: Icon Alpha (percent)
-			Tooltip: Doesn't work properly yet.
-		}
-
-		AllEnabled: {
-			Label: All Enabled
-			Tooltip: ""
-		}
-
-		WormBodyStyle: {
-			Label: Worm Body Style
-			Tooltip: ""
-		}
-
-		IconDistance: {
-			Label: Icon Distance
-			Tooltip: ""
-		}
-
-		AllowAll: {
-			Label: Allow All
-			Tooltip: ""
-		}
-
-		AllowBoss: {
-			Label: Allow Boss
-			Tooltip: ""
-		}
-
-		AllowBossPiece: {
-			Label: Allow Boss Piece
-			Tooltip: ""
-		}
-
-		AllowRare: {
-			Label: Allow Rare
-			Tooltip: ""
-		}
-
-		AllowEnemy: {
-			Label: Allow Enemy
-			Tooltip: ""
-		}
-
-		AllowWormBody: {
-			Label: Allow Worm Body
-			Tooltip: ""
-		}
-
-		OverrideWormBodyStyle: {
-			Label: Override Worm Body Style
-			Tooltip: ""
-		}
-
-		AllowBags: {
-			Label: Allow Bags
-			Tooltip: ""
-		}
-
-		AllowTreasure: {
-			Label: Allow Treasure
-			Tooltip: ""
-		}
-
-		OverrideIconDistance: {
-			Label: Override Icon Distance
-			Tooltip: ""
-		}
-	}
-
 	ServerConfig: {
-		DisplayName: Server Config
-
-		Map: {
-			Label: Map
+		ScreenIcons: {
 			Tooltip: ""
+			Label: Screen Icons
+		}
+
+		TreasureIcons: {
+			Tooltip: ""
+			Label: Treasure Icons
+		}
+
+		BagIcons: {
+			Tooltip: ""
+			Label: Bag Icons
+		}
+
+		WormBodyStyles: {
+			Tooltip: ""
+			Label: Worm Body Styles
+		}
+
+		WormBodyIcons: {
+			Tooltip: ""
+			Label: Worm Body Icons
+		}
+
+		EnemyIcons: {
+			Tooltip: ""
+			Label: Enemy Icons
+		}
+
+		RareIcons: {
+			Tooltip: ""
+			Label: Rare Icons
+		}
+
+		BossPieceIcons: {
+			Tooltip: ""
+			Label: Boss Piece Icons
+		}
+
+		BossIcons: {
+			Tooltip: ""
+			Label: Boss Icons
+		}
+
+		EnabledFor: {
+			Tooltip: ""
+			Label: Enabled For
+		}
+
+		Headers.ServerOverrides: Server Overrides Header
+		DisplayName: Server Config
+	}
+
+	ScreenIconConfig: {
+		IconDistance: {
+			Tooltip: ""
+			Label: Icon Distance
+		}
+
+		Alpha: {
+			Tooltip: ""
+			Label: Alpha %
+		}
+
+		DrawBorder: {
+			Tooltip: ""
+			Label: Draw Border
+		}
+
+		AttachScaleTo: {
+			Tooltip: ""
+			Label: Attach Scale To
+		}
+
+		Scale: {
+			Tooltip: ""
+			Label: Scale %
+		}
+
+		Distances: {
+			Tooltip: ""
+			Label: Distances
+		}
+
+		Type: {
+			Tooltip: ""
+			Label: Type
+		}
+
+		Tooltip: ""
+	}
+
+	ConfigIconDistanceTypeOverride: {
+		Unset: {
+			Tooltip: ""
+			Label: Unset
+		}
+
+		Floating: {
+			Tooltip: ""
+			Label: Floating
+		}
+
+		Clamped: {
+			Tooltip: ""
+			Label: Clamped
+		}
+
+		Tooltip: ""
+	}
+
+	ConfigWormBodyStyleOverride: {
+		Unset: {
+			Tooltip: ""
+			Label: Unset
+		}
+
+		ClosestAndHead: {
+			Tooltip: ""
+			Label: Closest + Head
+		}
+
+		WholeBody: {
+			Tooltip: ""
+			Label: Whole Body
+		}
+
+		Closest: {
+			Tooltip: ""
+			Label: Closest
+		}
+
+		Tooltip: ""
+
+		ClosestOnly: {
+			Tooltip: ""
+			Label: Closest Only
+		}
+	}
+
+	ConfigWormBodyStyle: {
+		ClosestAndHead: {
+			Tooltip: ""
+			Label: Closest + Head
+		}
+
+		WholeBody: {
+			Tooltip: ""
+			Label: Whole Body
+		}
+
+		Closest: {
+			Tooltip: ""
+			Label: Closest
+		}
+
+		Tooltip: ""
+	}
+
+	ConfigEnableTypeOverride: {
+		Unset: {
+			Tooltip: ""
+			Label: Unset
+		}
+
+		Both: {
+			Tooltip: ""
+			Label: Both
 		}
 
 		Screen: {
+			Tooltip: ""
 			Label: Screen
-			Tooltip: ""
 		}
+
+		Map: {
+			Tooltip: ""
+			Label: Map
+		}
+
+		None: {
+			Tooltip: ""
+			Label: None
+		}
+
+		Tooltip: ""
 	}
 
-	WormBodyStyle: {
+	ConfigEnableType: {
+		Both: {
+			Tooltip: ""
+			Label: Both
+		}
+
+		Screen: {
+			Tooltip: ""
+			Label: Screen
+		}
+
+		Map: {
+			Tooltip: ""
+			Label: Map
+		}
+
+		None: {
+			Tooltip: ""
+			Label: None
+		}
+
 		Tooltip: ""
-
-		ClosestOnly: {
-			Label: Closest Only
-			Tooltip: ""
-		}
-
-		WholeBody: {
-			Label: Whole Body
-			Tooltip: ""
-		}
-
-		ClosestAndHead: {
-			Label: Closest And Head
-			Tooltip: ""
-		}
 	}
 
-	IconDistance: {
-		Tooltip: ""
-
-		Fixed: {
-			Label: Fixed
+	ClientConfig: {
+		ScreenIcons: {
 			Tooltip: ""
+			Label: Screen Icons
 		}
 
+		TreasureIcons: {
+			Tooltip: ""
+			Label: Treasure Icons
+		}
+
+		BagIcons: {
+			Tooltip: ""
+			Label: Bag Icons
+		}
+
+		WormBodyStyles: {
+			Tooltip: ""
+			Label: Worm Body Styles
+		}
+
+		WormBodyIcons: {
+			Tooltip: ""
+			Label: Worm Body Icons
+		}
+
+		EnemyIcons: {
+			Tooltip: ""
+			Label: Enemy Icons
+		}
+
+		RareIcons: {
+			Tooltip: ""
+			Label: Rare Icons
+		}
+
+		BossPieceIcons: {
+			Tooltip: ""
+			Label: Boss Piece Icons
+		}
+
+		BossIcons: {
+			Tooltip: ""
+			Label: Boss Icons
+		}
+
+		EnabledFor: {
+			Tooltip: ""
+			Label: Enabled For
+		}
+
+		DisplayName: Client Config
+	}
+
+	ConfigIconZoomAttach: {
+		GameZoom: {
+			Tooltip: ""
+			Label: Game Zoom
+		}
+
+		UIScale: {
+			Tooltip: ""
+			Label: UI Scale
+		}
+
+		None: {
+			Tooltip: ""
+			Label: None
+		}
+
+		Tooltip: ""
+	}
+
+	IconDistanceConfig: {
 		Floating: {
+			Tooltip: ""
 			Label: Floating
+		}
+
+		Clamped: {
 			Tooltip: ""
+			Label: Clamped
+		}
+
+		Tooltip: ""
+
+		Factor: {
+			Tooltip: ""
+			Label: Factor %
 		}
 	}
 
-	OverrideWormBodyStyle: {
+	ClampedIconDistanceConfig: {
+		Multiplier: {
+			Tooltip: ""
+			Label: Multiplier
+		}
+
+		Offset: {
+			Tooltip: ""
+			Label: Offset
+		}
+
 		Tooltip: ""
-
-		Unset: {
-			Label: Unset
-			Tooltip: ""
-		}
-
-		ClosestOnly: {
-			Label: Closest Only
-			Tooltip: ""
-		}
-
-		WholeBody: {
-			Label: Whole Body
-			Tooltip: ""
-		}
-
-		ClosestAndHead: {
-			Label: Closest And Head
-			Tooltip: ""
-		}
 	}
 
-	OverrideIconDistance: {
-		Tooltip: ""
-
-		Unset: {
-			Label: Unset
-			Tooltip: ""
-		}
-
-		Fixed: {
-			Label: Fixed
-			Tooltip: ""
-		}
-
+	ConfigIconType: {
 		Floating: {
-			Label: Floating
 			Tooltip: ""
+			Label: Floating
 		}
+
+		Clamped: {
+			Tooltip: ""
+			Label: Clamped
+		}
+
+		Tooltip: ""
+	}
+
+	WormBodyStyleConfig: {
+		Screen: {
+			Tooltip: ""
+			Label: Screen
+		}
+
+		Map: {
+			Tooltip: ""
+			Label: Map
+		}
+
+		Tooltip: ""
 	}
 }

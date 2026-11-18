@@ -14,7 +14,7 @@ namespace VisualRadar;
 		{
 			active = false;
 			scale = 1f;
-			if (((context == TrackedContext.Map && Config.Combined.Map.TreasureEnabled) || (context == TrackedContext.Screen && Config.Combined.Screen.TreasureEnabled)) && MetalDetectorEnabled)
+			if (((context == TrackedContext.Map && (Config.TreasureIcons & ConfigEnableType.Map) > 0) || (context == TrackedContext.Screen && (Config.TreasureIcons & ConfigEnableType.Screen) > 0)) && MetalDetectorEnabled)
 			{
 				if (Main.SceneMetrics.bestOre > 0)
 				{
@@ -49,7 +49,7 @@ namespace VisualRadar;
 		// Or away from a cluster on map (TODO: Actual cluster check)
 		public void Check(TrackedContext context, ref int current)
 		{
-			if (((context == TrackedContext.Map && Config.Combined.Map.TreasureEnabled) || (context == TrackedContext.Screen && Config.Combined.Screen.TreasureEnabled)) && MetalDetectorEnabled)
+			if (((context == TrackedContext.Map && (Config.TreasureIcons & ConfigEnableType.Map) > 0) || (context == TrackedContext.Screen && (Config.TreasureIcons & ConfigEnableType.Screen) > 0)) && MetalDetectorEnabled)
 			{
 				if (Main.SceneMetrics.bestOre > 0)
 				{

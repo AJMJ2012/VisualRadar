@@ -12,7 +12,7 @@ public class VisualRadarScreen : ModSystem
 	public static Player player => Main.LocalPlayer;
 	public override void PostDrawInterface(SpriteBatch spriteBatch)
 	{
-		if (Main.netMode == NetmodeID.Server || !Config.Server.Screen.AllowAll || !Config.Client.Screen.AllEnabled) return;
+		if (Main.netMode == NetmodeID.Server || (Config.EnabledFor & ConfigEnableType.Screen) <= 0) return;
 		try
 		{
 			foreach (Tracker tracked in VisualRadarTracker.instance.trackedScreenObjects)
@@ -39,29 +39,30 @@ public class VisualRadarScreen : ModSystem
 		bool drawArrow = trackedObject.drawArrow;
 		float animFade = animation * MathHelper.Clamp((animation - 0.5f) * (2f), 0f, 1f);
 		float animEase = smoothAnimation;
-
+		int minimum = 32;
 		scale /= Main.UIScale;
-		float scaleFactor = 0f;
-		if (Config.Client.Screen.AttachToUIScale) scaleFactor = Math.Max(scaleFactor, Main.UIScale);
-		if (Config.Client.Screen.AttachToGameZoom) scaleFactor = Math.Max(scaleFactor, Main.GameViewMatrix.Zoom.X);
-		if (scaleFactor <= 0f) scaleFactor = 1f;
+		float scaleFactor = Config.Client.ScreenIcons.AttachScaleTo switch
+		{
+			ConfigIconZoomAttach.UIScale => Main.UIScale,
+			ConfigIconZoomAttach.GameZoom => Main.GameViewMatrix.Zoom.X,
+			_ => 1f,
+		};
 		scale *= scaleFactor;
-		float edge = (32) * (0.5f + (scaleFactor / 2f));
-		fixedDistance = fixedDistance * Config.Client.Screen.FixedDistanceMult;
-		int fixedDistOffset = Config.Client.Screen.FixedBaseDistance;
+		float edge = minimum * (0.5f + (scaleFactor / 2f));
+        fixedDistance *= Config.Client.ScreenIcons.Distances.Clamped.Multiplier;
+		int fixedDistOffset = Config.Client.ScreenIcons.Distances.Clamped.Offset;
 		Vector2 playerScreenPosition = new Vector2(player.Center.X - Main.screenPosition.X, player.Center.Y - Main.screenPosition.Y) / Main.UIScale;
 		float relativeAngle = (float)Math.Atan2(player.Center.Y - position.Y, player.Center.X - position.X);
 		float arrowRotation = relativeAngle;
 		float distance = Vector2.Distance(player.Center, position);
-		float alpha = Config.Client.Screen.IconAlpha / 100f;
-		float iconDistance = distance / 2f;
+		float alpha = Config.Client.ScreenIcons.Alpha / 100f;
+		float iconDistance = distance * Config.Client.ScreenIcons.Distances.Factor;
 		float arrowScale = scale;
-		if (Config.Combined.Screen.IconDistance == IconDistance.Fixed) iconDistance = MathHelper.Clamp(iconDistance, 0f, fixedDistance + fixedDistOffset);
-		//if (iconDistance < fixedDistance + fixedDistOffset)
-		if (iconDistance < 32)
+		if (Config.ScreenIcons.Type == ConfigIconType.Clamped)
+			iconDistance = MathHelper.Clamp(iconDistance, 0f, fixedDistance + fixedDistOffset);
+		if (iconDistance < minimum) // if (iconDistance < fixedDistance + fixedDistOffset)
 		{
-			//float factor = MathHelper.Clamp((((iconDistance - fixedDistOffset) / fixedDistance) - 0.5f) * 2f, 0f, 1f);
-			float factor = MathHelper.Clamp((((iconDistance - fixedDistOffset) / 32) - 0.5f) * 2f, 0f, 1f);
+			float factor = MathHelper.Clamp((((iconDistance - fixedDistOffset) / minimum /*fixedDistance*/) - 0.5f) * 2f, 0f, 1f);
 			alpha *= factor;
 			arrowScale *= factor;
 		}
@@ -80,7 +81,7 @@ public class VisualRadarScreen : ModSystem
 		alpha *= animFade;
 		//scale *= animFade;
 		arrowScale *= animFade;
-		if (Config.Client.Screen.IconBorder)
+		if (Config.Client.ScreenIcons.DrawBorder)
 		{
 			for (int j = 0; j <= 1; j++)
 			{
